@@ -99,7 +99,7 @@ const Signup = () => {
           </div>
         </div>
         <span className="flex justify-center m-2 font-semibold">
-          Don&apos;t have an account
+          Already have an account
           <NavLink to="/login" className="text-blue-600 mx-2">
             login here!
           </NavLink>
