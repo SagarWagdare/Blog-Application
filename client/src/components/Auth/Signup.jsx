@@ -2,12 +2,33 @@ import { useState } from "react";
 import styles from "./Signup.module.css";
 import { IoIosEyeOff } from "react-icons/io";
 import { IoIosEye } from "react-icons/io";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
+
 const Signup = () => {
   const [hidePassword, setHidePassword] = useState(false);
-
+  const [userDetails, setUserDetails] = useState({
+    username: "",
+    email: "",
+    age:"",
+    password: ""
+  });
+const navigate = useNavigate()
+  console.log(userDetails.username, userDetails.email, userDetails.password,userDetails.age);
   const handlePasswordvisibility = () => {
     setHidePassword(!hidePassword);
+  };
+
+  const handleUserDetails = async (e) => {
+    e.preventDefault()
+    await axios.post("http://localhost:8000/api/user/signup",userDetails).then((res)=>{
+      toast.success(res?.data?.message)
+      navigate("/blogs")
+
+    }).catch((err)=>{
+      toast.warning(err?.response?.data?.message)
+    })
   };
   return (
     <div className="isolate bg-white px-6 py-2 sm:py-2 lg:">
@@ -28,7 +49,7 @@ const Signup = () => {
           Signup
         </h2>
       </div>
-      <form action="#" method="POST" className="mx-auto mt-5 max-w-xl ">
+      <form className="mx-auto mt-5 max-w-xl " method="POST" onSubmit={handleUserDetails}>
         <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
           <div className="sm:col-span-2">
             <label
@@ -43,6 +64,13 @@ const Signup = () => {
                 name="text"
                 id="text"
                 autoComplete="text"
+                value={userDetails?.username}
+                onChange={(e) =>
+                  setUserDetails((prev) => ({
+                    ...prev,
+                    username: e.target.value,
+                  }))
+                }
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -60,6 +88,31 @@ const Signup = () => {
                 name="email"
                 id="email"
                 autoComplete="email"
+                value={userDetails?.email}
+                onChange={(e) =>
+                  setUserDetails((prev) => ({ ...prev, email: e.target.value }))
+                }
+                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+          <div className="sm:col-span-2">
+            <label
+              htmlFor="age"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Age
+            </label>
+            <div className="mt-2.5">
+              <input
+                type="number"
+                name="age"
+                id="age"
+                autoComplete="number"
+                value={userDetails?.age}
+                onChange={(e) =>
+                  setUserDetails((prev) => ({ ...prev, age: e.target.value }))
+                }
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -83,6 +136,13 @@ const Signup = () => {
                   type="text"
                   name="password"
                   id="password"
+                  value={userDetails?.password}
+                  onChange={(e) =>
+                    setUserDetails((prev) => ({
+                      ...prev,
+                      password: e.target.value,
+                    }))
+                  }
                   autoComplete="password"
                   className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -92,6 +152,13 @@ const Signup = () => {
                   name="password"
                   id="password"
                   autoComplete="password"
+                  value={userDetails?.password}
+                  onChange={(e) =>
+                    setUserDetails((prev) => ({
+                      ...prev,
+                      password: e.target.value,
+                    }))
+                  }
                   className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               )}

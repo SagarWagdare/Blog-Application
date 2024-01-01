@@ -1,14 +1,34 @@
-import styles from "./Login.module.css";
+// import styles from "./Login.module.css";
+import axios from "axios";
 import { useState } from "react";
 import { IoIosEyeOff } from "react-icons/io";
 import { IoIosEye } from "react-icons/io";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 const Login = () => {
+  const navigate = useNavigate()
   const [hidePassword, setHidePassword] = useState(false);
-
+  const [userData, setUserData] = useState({
+    email: "",
+    password: "",
+  });
+  
+  const handleUserData = async (e) => {
+    e.preventDefault();
+    await axios
+      .post("http://localhost:8000/api/user/login", userData)
+      .then((res) => {
+        toast.success(res.data.message)
+        navigate("/blogs")
+      })
+      .catch((err) => {
+        toast.warning(err?.response?.data?.message)
+      });
+  };
   const handlePasswordvisibility = () => {
     setHidePassword(!hidePassword);
   };
+
   return (
     <div className="isolate bg-white px-6 py-2 sm:py-2 lg:">
       <div
@@ -28,7 +48,11 @@ const Login = () => {
           Login
         </h2>
       </div>
-      <form action="#" method="POST" className="mx-auto mt-5 max-w-xl ">
+      <form
+        method="POST"
+        className="mx-auto mt-5 max-w-xl"
+        onSubmit={handleUserData}
+      >
         <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
           <div className="sm:col-span-2">
             <label
@@ -43,6 +67,10 @@ const Login = () => {
                 name="email"
                 id="email"
                 autoComplete="email"
+                value={userData.email}
+                onChange={(e) =>
+                  setUserData((prev) => ({ ...prev, email: e.target.value }))
+                }
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -67,6 +95,13 @@ const Login = () => {
                   name="password"
                   id="password"
                   autoComplete="password"
+                  value={userData.password}
+                  onChange={(e) =>
+                    setUserData((prev) => ({
+                      ...prev,
+                      password: e.target.value,
+                    }))
+                  }
                   className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               ) : (
@@ -75,15 +110,25 @@ const Login = () => {
                   name="password"
                   id="password"
                   autoComplete="password"
+                  value={userData.password}
+                  onChange={(e) =>
+                    setUserData((prev) => ({
+                      ...prev,
+                      password: e.target.value,
+                    }))
+                  }
                   className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               )}
             </div>
           </div>
-
-       
         </div>
-          <span className="flex justify-center m-2 font-semibold">Don&apos;t have an account <NavLink to="/signup" className="text-blue-600 mx-2">signup here!</NavLink> </span>
+        <span className="flex justify-center m-2 font-semibold">
+          Don&apos;t have an account{" "}
+          <NavLink to="/signup" className="text-blue-600 mx-2">
+            signup here!
+          </NavLink>{" "}
+        </span>
         <div className="mt-5">
           <button
             type="submit"

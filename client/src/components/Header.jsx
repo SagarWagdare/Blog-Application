@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import styles from "../components/Header.module.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 const Header = () => {
+  const location = useLocation()
+  console.log("👉 ~ file: Header.jsx:6 ~ Header ~ location⭐", location.pathname)
+  const locationPath = location.pathname;
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -25,13 +28,13 @@ const Header = () => {
       </h1>
       <ul>
         <li>
-          <NavLink to="/blogPage">Home</NavLink>
+          <NavLink to="/blogs" className={locationPath==="/blogs"?"text-teal-400":""}>Home</NavLink>
         </li>
         <li>
-          <NavLink to="/about">About</NavLink>
+          <NavLink to="/about-us" className={locationPath==="/about-us"?"text-teal-400":""}>About</NavLink>
         </li>
         <li>
-          <NavLink to="/contact">Contact</NavLink>
+          <NavLink to="/contact" className={locationPath==="/contact"?"text-teal-400":""}>Contact</NavLink>
         </li>
       </ul>
       <ul>
