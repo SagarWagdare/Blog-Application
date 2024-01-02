@@ -1,4 +1,4 @@
-import styles from "./BlogPage.module.css"
+// import styles from "./BlogPage.module.css"
 const BlogPage = () => {
   const posts = [
     {
