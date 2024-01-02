@@ -12,8 +12,7 @@ const Contact = () => {
 
   const handleUserData = async (e) => {
     e.preventDefault();
-    await axios
-      .post("http://localhost:8000/api/user/contact/userData", userData)
+    await axios.post("http://localhost:8000/api/user/userData", userData)
       .then((res) => {
         toast.success(res.data.message);
       })
@@ -41,7 +40,6 @@ const Contact = () => {
         </h2>
       </div>
       <form
-        method="POST"
         className="mx-auto mt-5
      max-w-xl "
         onSubmit={handleUserData}
