@@ -12,19 +12,26 @@ const Signup = () => {
     username: "",
     email: "",
     age:"",
-    password: ""
+    password: "",
+    image:""
   });
 const navigate = useNavigate()
-  console.log(userDetails.username, userDetails.email, userDetails.password,userDetails.age);
+console.log(userDetails)
   const handlePasswordvisibility = () => {
     setHidePassword(!hidePassword);
   };
 
   const handleUserDetails = async (e) => {
     e.preventDefault()
-    await axios.post("http://localhost:8000/api/user/signup",userDetails).then((res)=>{
+    // if(userDetails.username || userDetails.email || userDetails.password === ""){
+    //   return toast.warning("pls a")
+    // }
+    await axios.post("http://localhost:8000/api/user/signup",userDetails,{
+      
+    }).then((res)=>{
+      localStorage.setItem(res?.data?.token)
       toast.success(res?.data?.message)
-      navigate("/blogs")
+      navigate("/")
 
     }).catch((err)=>{
       toast.warning(err?.response?.data?.message)
@@ -49,7 +56,7 @@ const navigate = useNavigate()
           Signup
         </h2>
       </div>
-      <form className="mx-auto mt-5 max-w-xl " method="POST" onSubmit={handleUserDetails}>
+      <form className="mx-auto mt-5 max-w-xl"  method="POST" onSubmit={handleUserDetails} encType="multipart/form-data">
         <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
           <div className="sm:col-span-2">
             <label
@@ -63,6 +70,7 @@ const navigate = useNavigate()
                 type="text"
                 name="text"
                 id="text"
+                required
                 autoComplete="text"
                 value={userDetails?.username}
                 onChange={(e) =>
@@ -75,6 +83,25 @@ const navigate = useNavigate()
               />
             </div>
           </div>
+          {/* <div className="sm:col-span-2">
+            <label
+              htmlFor="age"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Image
+            </label>
+            <div className="mt-2.5">
+              <input
+                type="file"
+                accept="image/*"
+                id="image"
+                onChange={(e) =>
+                  setUserDetails((prev) => ({ ...prev, image:e.target.files[0] }))
+                }
+                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div> */}
           <div className="sm:col-span-2">
             <label
               htmlFor="email"
@@ -87,6 +114,8 @@ const navigate = useNavigate()
                 type="email"
                 name="email"
                 id="email"
+                required
+
                 autoComplete="email"
                 value={userDetails?.email}
                 onChange={(e) =>
@@ -136,6 +165,7 @@ const navigate = useNavigate()
                   type="text"
                   name="password"
                   id="password"
+                  required
                   value={userDetails?.password}
                   onChange={(e) =>
                     setUserDetails((prev) => ({
@@ -151,6 +181,7 @@ const navigate = useNavigate()
                   type="password"
                   name="password"
                   id="password"
+                  required
                   autoComplete="password"
                   value={userDetails?.password}
                   onChange={(e) =>

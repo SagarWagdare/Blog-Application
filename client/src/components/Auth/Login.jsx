@@ -18,8 +18,9 @@ const Login = () => {
     await axios
       .post("http://localhost:8000/api/user/login", userData)
       .then((res) => {
+        localStorage.setItem("token",res?.data?.token)
         toast.success(res.data.message)
-        navigate("/blogs")
+        navigate("/")
       })
       .catch((err) => {
         toast.warning(err?.response?.data?.message)
