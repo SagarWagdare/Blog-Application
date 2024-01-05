@@ -2,6 +2,7 @@ import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
+import { toast } from "react-toastify";
 const CreateBlog = ({ createPopup, handleCreatePopup }) => {
   const cancelButtonRef = useRef(null);
   const [blogData, setBlogData] = useState({
@@ -24,7 +25,8 @@ const CreateBlog = ({ createPopup, handleCreatePopup }) => {
     await axios
       .post("http://localhost:8000/api/user/postBlog", formData)
       .then((res) => {
-        console.log(res);
+        toast.success(res?.data?.message)
+        handleCreatePopup()
       })
       .catch((err) => {
         console.log(err);
@@ -63,6 +65,9 @@ const CreateBlog = ({ createPopup, handleCreatePopup }) => {
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                 <div className=" bg-white px-6  lg:px-8">
+                  <div className="flex justify-center p-2">
+                    <h2 className="text-xl font-semibold ">Create Blog</h2>
+                  </div>
                   <form method="POST" encType="multipart/form-data" onSubmit={handleBlogData} className="mx-auto mt-5 max-w-xl ">
                     <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
                       <div>

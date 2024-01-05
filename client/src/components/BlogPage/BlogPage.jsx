@@ -11,8 +11,6 @@ import { API_BASE_URL } from "../.././config";
 import { format } from "date-fns";
 const BlogPage = () => {
   const [blogs, setBlogs] = useState([]);
-  console.log("👉 ~ file: BlogPage.jsx:13 ~ BlogPage ~ blogs⭐", blogs);
-  const userId = useSelector((c) => c.user.userId);
   const [createPopup, setCreatePopup] = useState(false);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);

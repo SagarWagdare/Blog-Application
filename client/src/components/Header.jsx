@@ -14,6 +14,7 @@ import { signOut } from "../features/userSlice";
 const Header = () => {
   const location = useLocation();
   const dispatch = useDispatch()
+  const userId = useSelector((c) => c.user.userId);
   const locationPath = location.pathname;
   const [scrolled, setScrolled] = useState(false);
   const [isToken, setIsToken] = useState(null);
@@ -104,15 +105,15 @@ const Header = () => {
               <div className="py-1">
                 <Menu.Item>
                   {({ active }) => (
-                    <a
-                      href="#"
-                      className={classNames(
+                    <NavLink
+                        className={classNames(
                         active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                         "block px-4 py-2 text-sm"
                       )}
+                      to={`/profile/${userId}`}
                     >
                       My profile
-                    </a>
+                    </NavLink>
                   )}
                 </Menu.Item>
 
