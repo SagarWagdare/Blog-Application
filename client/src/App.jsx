@@ -12,11 +12,13 @@ import NotFound from "./components/NotFound";
 import Contact from "./components/Contact/Contact";
 import { useEffect, useState } from "react";
 import UpdateBlog from "./components/BlogPage/UpdateBlog";
+import UserProfile from "./components/Profile/UserProfile";
 function App() {
   const [isToken, setIsToken] = useState(null);
+  console.log("👉 ~ file: App.jsx:18 ~ App ~ isToken⭐", isToken)
   useEffect(() => {
     const token = localStorage.getItem("token");
-    setIsToken(token);
+    setIsToken(token)
   }, []);
 
   
@@ -35,6 +37,7 @@ function App() {
         <Route path="/about-us" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/update-blog/:id" element={<UpdateBlog />} />
+        <Route path="/profile/:id" element={<UserProfile />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

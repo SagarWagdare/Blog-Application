@@ -6,8 +6,11 @@ import { MdCreate } from "react-icons/md";
 import { NavLink, useNavigate } from "react-router-dom";
 import Loader from "../loader";
 import CreateBlog from "./CreateBlog";
+import { useSelector } from "react-redux";
+import {API_BASE_URL} from "../.././config"
 const BlogPage = () => {
   const [blogs, setBlogs] = useState([]);
+  const userId = useSelector((c)=>c.user.userId)
   const [createPopup, setCreatePopup] = useState(false);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -62,6 +65,7 @@ const BlogPage = () => {
       {loading ? (
         <Loader />
       ) : (
+        
         <div className="bg-white py-5 ">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="mx-auto max-w-2xl lg:mx-0">
@@ -69,9 +73,11 @@ const BlogPage = () => {
                 <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
                   From the blog
                 </h2>
+<NavLink to={`/profile/${userId}`}>
+
 
                 <button
-                  onClick={handleCreatePopup}
+                  // onClick={handleCreatePopup}
                   className={`bg-transparent text-black border-black border font-semibold rounded-md p-2 text-xl ${styles.create_btn}`}
                 >
                   Create
@@ -79,6 +85,8 @@ const BlogPage = () => {
                     <MdCreate />
                   </span>
                 </button>
+
+</NavLink>
                 {createPopup && (
                   <CreateBlog
                     handleCreatePopup={handleCreatePopup}

@@ -5,8 +5,10 @@ import { IoIosEye } from "react-icons/io";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
 
 const Signup = () => {
+  const dispatch = useDispatch()
   const [hidePassword, setHidePassword] = useState(false);
   const [userDetails, setUserDetails] = useState({
     username: "",
@@ -23,14 +25,20 @@ console.log(userDetails)
 
   const handleUserDetails = async (e) => {
     e.preventDefault()
-    // if(userDetails.username || userDetails.email || userDetails.password === ""){
-    //   return toast.warning("pls a")
-    // }
-    await axios.post("http://localhost:8000/api/user/signup",userDetails,{
+  const formData = new FormData();
+  formData.append("username",userDetails.username),
+  formData.append("email",userDetails.email),
+  formData.append("age",userDetails.age),
+  formData.append("password",userDetails.password),
+  formData.append("image",userDetails.image),
+
+
+    await axios.post("http://localhost:8000/api/user/signup",formData,{
       
     }).then((res)=>{
       localStorage.setItem(res?.data?.token)
       toast.success(res?.data?.message)
+      console.log(res?.data?.user)
       navigate("/")
 
     }).catch((err)=>{
@@ -83,7 +91,7 @@ console.log(userDetails)
               />
             </div>
           </div>
-          {/* <div className="sm:col-span-2">
+          <div className="sm:col-span-2">
             <label
               htmlFor="age"
               className="block text-sm font-semibold leading-6 text-gray-900"
@@ -93,15 +101,15 @@ console.log(userDetails)
             <div className="mt-2.5">
               <input
                 type="file"
-                accept="image/*"
                 id="image"
+                name="image"
                 onChange={(e) =>
                   setUserDetails((prev) => ({ ...prev, image:e.target.files[0] }))
                 }
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
-          </div> */}
+          </div>
           <div className="sm:col-span-2">
             <label
               htmlFor="email"

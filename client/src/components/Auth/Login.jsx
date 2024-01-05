@@ -3,24 +3,30 @@ import axios from "axios";
 import { useState } from "react";
 import { IoIosEyeOff } from "react-icons/io";
 import { IoIosEye } from "react-icons/io";
+import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import {setUserId} from "../../features/userSlice"
 const Login = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [hidePassword, setHidePassword] = useState(false);
   const [userData, setUserData] = useState({
     email: "",
     password: "",
   });
-  
+  const [data,setData] = useState([])
   const handleUserData = async (e) => {
     e.preventDefault();
     await axios
       .post("http://localhost:8000/api/user/login", userData)
       .then((res) => {
         localStorage.setItem("token",res?.data?.token)
+        setData(res?.data)
+        console.log(res?.data?.userId)
+        dispatch(setUserId(res?.data?.userId))
         toast.success(res.data.message)
-        navigate("/")
+        navigate("/profile/6596e0ada74e8c9722a7072c")
       })
       .catch((err) => {
         toast.warning(err?.response?.data?.message)
@@ -32,6 +38,7 @@ const Login = () => {
 
   return (
     <div className="isolate bg-white px-6 py-2 sm:py-2 lg:">
+
       <div
         className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
         aria-hidden="true"

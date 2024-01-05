@@ -1,10 +1,10 @@
 import myImg from "../../assets/images/myImg.jpg";
 const About = () => {
   return (
-    <section className="relative isolate overflow-hidden px-6 py-24 sm:py-30 lg:px-8">
-       <div className="bg-white py-24 sm:py-32">
+    <section className="relative isolate overflow-hidden px-6   lg:px-8">
+       <div className="bg-white py-5 ">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-      <h1 className="flex justify-center  text-2xl font-bold">Application Created Using</h1>
+      <h1 className="flex justify-center  text-2xl font-bold underline">Application Created Using</h1>
 
         <div className="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-15 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5">
           <img
@@ -47,7 +47,7 @@ const About = () => {
     </div>
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,theme(colors.indigo.100),white)] opacity-20" />
       <div className="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-white shadow-xl shadow-indigo-600/10 ring-1 ring-indigo-50 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-center" />
-      <h1 className="flex justify-center  text-2xl font-bold">Creator</h1>
+      <h1 className="flex justify-center  text-2xl font-bold underline">Application Creator</h1>
       <div className="mx-auto max-w-2xl lg:max-w-4xl">
         <figure className="mt-5">
           <blockquote className="text-center text-xl font-semibold leading-8 text-gray-900 sm:text-1xl sm:leading-9">
@@ -83,7 +83,6 @@ const About = () => {
                 <span className="font-bold mx-1">(SDE)</span>Software
                 Development Engineer
               </div>
-              
             </div>
             <div className="flex  justify-center gap-3 m-2">
         <img

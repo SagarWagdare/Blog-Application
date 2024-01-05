@@ -12,6 +12,7 @@ const postBlog = async (req, res) => {
         name: author.name,
         role: author.role,
       },
+      blogImage:req.file.filename
     });
     return res
       .status(200)

@@ -11,7 +11,7 @@ const Loader = () => {
   wrapperStyle={{}}
   wrapperClass="fidget-spinner-wrapper"
   />
-  <span className='text-slate-500'>sit tight we are fetching data...</span>
+  <span className='text-slate-500'>sit tight we are fetching your data...</span>
     </div>)
 }
 

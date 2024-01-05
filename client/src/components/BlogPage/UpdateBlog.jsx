@@ -13,7 +13,7 @@ const UpdateBlog = () => {
   return (
     <div className=" bg-white px-6  lg:px-8">
   
-    <form action="#" method="POST" className="mx-auto mt-10 max-w-xl sm:mt-10">
+    <form  method="POST" className="mx-auto mt-10 max-w-xl sm:mt-10">
       <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
         <div>
           <label htmlFor="title" className="block text-sm font-semibold leading-6 text-gray-900">
