@@ -1,9 +1,35 @@
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import axios from "axios";
 const CreateBlog = ({ createPopup, handleCreatePopup }) => {
   const cancelButtonRef = useRef(null);
+  const [blogData, setBlogData] = useState({
+    title: "",
+    category: "",
+    description: "",
+    authorname: "",
+    image: "",
+  });
 
+  const handleBlogData = async (e) => {
+    e.preventDefault()
+    const formData = new FormData();
+    formData.append("title", blogData.title);
+    formData.append("description", blogData.description);
+    formData.append("category", blogData.category);
+    formData.append("authorname", blogData.authorname);
+    formData.append("image", blogData.image);
+
+    await axios
+      .post("http://localhost:8000/api/user/postBlog", formData)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <Transition.Root show={createPopup} as={Fragment}>
       <Dialog
@@ -37,11 +63,31 @@ const CreateBlog = ({ createPopup, handleCreatePopup }) => {
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                 <div className=" bg-white px-6  lg:px-8">
-                  <form
-                    method="POST"
-                    className="mx-auto mt-5 max-w-xl "
-                  >
+                  <form method="POST" encType="multipart/form-data" onSubmit={handleBlogData} className="mx-auto mt-5 max-w-xl ">
                     <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+                      <div>
+                        <label
+                          htmlFor="title"
+                          className="block text-sm font-semibold leading-6 text-gray-900"
+                        >
+                          Authorname
+                        </label>
+                        <div className="mt-2">
+                          <input
+                            type="text"
+                            name="title"
+                            id="title"
+                            value={blogData?.authorname}
+                            onChange={(e) =>
+                              setBlogData((prev) => ({
+                                ...prev,
+                                authorname: e.target.value,
+                              }))
+                            }
+                            className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          />
+                        </div>
+                      </div>
                       <div>
                         <label
                           htmlFor="title"
@@ -54,6 +100,13 @@ const CreateBlog = ({ createPopup, handleCreatePopup }) => {
                             type="text"
                             name="title"
                             id="title"
+                            value={blogData?.title}
+                            onChange={(e) =>
+                              setBlogData((prev) => ({
+                                ...prev,
+                                title: e.target.value,
+                              }))
+                            }
                             className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                           />
                         </div>
@@ -70,6 +123,13 @@ const CreateBlog = ({ createPopup, handleCreatePopup }) => {
                             type="text"
                             name="Category"
                             id="Category"
+                            value={blogData?.category}
+                            onChange={(e) =>
+                              setBlogData((prev) => ({
+                                ...prev,
+                                category: e.target.value,
+                              }))
+                            }
                             className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                           />
                         </div>
@@ -87,6 +147,13 @@ const CreateBlog = ({ createPopup, handleCreatePopup }) => {
                             name="description"
                             id="description"
                             rows={4}
+                            value={blogData?.description}
+                            onChange={(e) =>
+                              setBlogData((prev) => ({
+                                ...prev,
+                                description: e.target.value,
+                              }))
+                            }
                             className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                           />
                         </div>
@@ -103,6 +170,12 @@ const CreateBlog = ({ createPopup, handleCreatePopup }) => {
                             type="file"
                             name="image"
                             id="image"
+                            onChange={(e) =>
+                              setBlogData((prev) => ({
+                                ...prev,
+                                image: e.target.files[0],
+                              }))
+                            }
                             className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                           />
                         </div>

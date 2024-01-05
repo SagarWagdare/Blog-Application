@@ -23,10 +23,9 @@ const Login = () => {
       .then((res) => {
         localStorage.setItem("token",res?.data?.token)
         setData(res?.data)
-        console.log(res?.data?.userId)
         dispatch(setUserId(res?.data?.userId))
         toast.success(res.data.message)
-        navigate("/profile/6596e0ada74e8c9722a7072c")
+        navigate("/")
       })
       .catch((err) => {
         toast.warning(err?.response?.data?.message)

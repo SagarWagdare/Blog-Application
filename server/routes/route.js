@@ -4,23 +4,27 @@ const { contactUser } = require("../controllers/connectionData/ConnectionData");
 const { postBlog, getBlogs } = require("../controllers/blogsData/BlogsData");
 const multer = require("multer");
 const router = express.Router();
-router.use(express.static('uploads'))
+
+// Serve static files from the 'uploads' directory
+router.use(express.static('uploads'));
+
 const storage = multer.diskStorage({
-  destination:(req,file,cb)=>{
-    cb(null,"uploads/")
+  destination: (req, file, cb) => {
+    cb(null, "uploads/");
   },
-  filename:(req,file,cb)=>{
-    cb(null,`${Date.now()}-${file.originalname}`)
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`);
   }
+});
 
-})
+const userImage = multer({ storage: storage, limits: { fileSize: 5 * 1024 * 1024 } });
+const blogImage = multer({ storage: storage, limits: { fileSize: 5 * 1024 * 1024 } });
 
-const upload = multer({storage:storage, limits: { fileSize: 5 * 1024 * 1024 } })
-router.post("/signup",upload.single("image"),signup)
-router.post("/login",login)
-router.get("/getUser",getUser)
-router.post("/userData",contactUser)
-router.post("/postBlog",upload.single("image"),postBlog)
-router.get("/getBlogs",getBlogs)
+router.post("/signup", userImage.single("image"), signup);
+router.post("/login", login);
+router.get("/getUser", getUser);
+router.post("/userData", contactUser);
+router.post("/postBlog", blogImage.single("image"), postBlog);
+router.get("/getBlogs", getBlogs);
 
 module.exports = router;

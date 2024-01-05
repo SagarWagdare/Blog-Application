@@ -13,9 +13,26 @@ import Contact from "./components/Contact/Contact";
 import { useEffect, useState } from "react";
 import UpdateBlog from "./components/BlogPage/UpdateBlog";
 import UserProfile from "./components/Profile/UserProfile";
+import { useSelector } from "react-redux";
 function App() {
   const [isToken, setIsToken] = useState(null);
-  console.log("👉 ~ file: App.jsx:18 ~ App ~ isToken⭐", isToken)
+  const userId = useSelector((c)=>c.user.userId)
+  const [id,setId] = useState(userId)
+  useEffect(() => {
+    try {
+      axios
+        .get(`http://localhost:8000/api/user/getUser?id=${id}`)
+        .then((res) => {
+          setIsUser(res?.data?.getUser);
+          dispatch(userData(res?.data?.getUser));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (error) {
+   
+    }
+  }, [id]);
   useEffect(() => {
     const token = localStorage.getItem("token");
     setIsToken(token)

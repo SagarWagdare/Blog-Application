@@ -1,26 +1,28 @@
 const Blogs = require("../../models/BlogModel");
 const postBlog = async (req, res) => {
-  const { title, description, category, author } = req.body;
+  const { title, description, category, authorname } = req.body;
   try {
+    if (!req.file) {
+      return res.status(400).json({ status: false, message: "No file uploaded" });
+    }
+
     await Blogs.create({
       title: title,
       description: description,
-      category: {
-        title: category.title,
-      },
-      author: {
-        name: author.name,
-        role: author.role,
-      },
-      blogImage:req.file.filename
+      category: category,
+      authorname: authorname,
+      image: req.file.filename
     });
+
     return res
       .status(200)
       .json({ status: true, message: "Blog created Successfully" });
   } catch (error) {
-    return res.status(500).json({ status: false, message: "An error occured" });
+    console.error(error);
+    return res.status(500).json({ status: false, message: "An error occurred" });
   }
 };
+
 const getBlogs = async (req, res) => {
   try {
     const allBlogs = await Blogs.find();

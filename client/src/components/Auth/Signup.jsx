@@ -18,7 +18,6 @@ const Signup = () => {
     image:""
   });
 const navigate = useNavigate()
-console.log(userDetails)
   const handlePasswordvisibility = () => {
     setHidePassword(!hidePassword);
   };
@@ -33,12 +32,9 @@ console.log(userDetails)
   formData.append("image",userDetails.image),
 
 
-    await axios.post("http://localhost:8000/api/user/signup",formData,{
-      
-    }).then((res)=>{
+    await axios.post("http://localhost:8000/api/user/signup",formData).then((res)=>{
       localStorage.setItem(res?.data?.token)
       toast.success(res?.data?.message)
-      console.log(res?.data?.user)
       navigate("/")
 
     }).catch((err)=>{

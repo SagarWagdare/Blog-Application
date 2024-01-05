@@ -11,20 +11,14 @@ const blogSchema = new mongoose.Schema(
       required: true,
     },
     category: {
-      title: {
+    
         type: String,
         required:true
-      },
     },
-    author: {
-      name: {
+    authorname: {
+    
         type: String,
-        required: true,
-      },
-      role: {
-        type: String,
-        required: true,
-      },
+        required: true,     
     },
     image:{
       type:String,

@@ -7,18 +7,18 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Loader from "../loader";
 import CreateBlog from "./CreateBlog";
 import { useSelector } from "react-redux";
-import {API_BASE_URL} from "../.././config"
+import { API_BASE_URL } from "../.././config";
+import { format } from "date-fns";
 const BlogPage = () => {
   const [blogs, setBlogs] = useState([]);
-  const userId = useSelector((c)=>c.user.userId)
+  console.log("👉 ~ file: BlogPage.jsx:13 ~ BlogPage ~ blogs⭐", blogs);
+  const userId = useSelector((c) => c.user.userId);
   const [createPopup, setCreatePopup] = useState(false);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  console.log("👉 ~ file: BlogPage.jsx:6 ~ BlogPage ~ blogs⭐", blogs);
 
   const handleBlogs = async () => {
     setLoading(true);
-
     await axios
       .get("http://localhost:8000/api/user/getBlogs")
       .then((res) => {
@@ -65,7 +65,6 @@ const BlogPage = () => {
       {loading ? (
         <Loader />
       ) : (
-        
         <div className="bg-white py-5 ">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="mx-auto max-w-2xl lg:mx-0">
@@ -73,11 +72,9 @@ const BlogPage = () => {
                 <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
                   From the blog
                 </h2>
-<NavLink to={`/profile/${userId}`}>
-
-
+                {/* <NavLink to={`/profile/${userId}`}> */}
                 <button
-                  // onClick={handleCreatePopup}
+                  onClick={handleCreatePopup}
                   className={`bg-transparent text-black border-black border font-semibold rounded-md p-2 text-xl ${styles.create_btn}`}
                 >
                   Create
@@ -85,8 +82,7 @@ const BlogPage = () => {
                     <MdCreate />
                   </span>
                 </button>
-
-</NavLink>
+                {/* </NavLink> */}
                 {createPopup && (
                   <CreateBlog
                     handleCreatePopup={handleCreatePopup}
@@ -106,17 +102,23 @@ const BlogPage = () => {
                   className={`flex max-w-xl flex-col items-start justify-between rounded-r-sm p-2 ${styles.blog_container}`}
                   onClick={() => handleUpdateBlog(post)}
                 >
-                  <img src={blogImg} alt="blogImg" />
+                  <div className="flex justify-center h-60 ">
+                    <img
+                      src={`${API_BASE_URL}/${post?.image}`}
+                      className="object-cover"
+                      alt="blogImg"
+                    />
+                  </div>
                   <div className="flex items-center gap-x-4 text-xs">
                     <time dateTime="" className="text-gray-500">
-                      {post.createdAt}
+                      {format(new Date(post.createdAt), "d MMMM, yyyy hh:mm a")}{" "}
                     </time>
 
                     <a
                       href="#"
                       className="relative  rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
                     >
-                      {post.category.title}
+                      {post.category}
                     </a>
                   </div>
 
@@ -141,10 +143,10 @@ const BlogPage = () => {
                       <p className="font-semibold text-gray-900">
                         <a href="#">
                           <span className="absolute inset-0" />
-                          {post.author.name}
+                          {post.authorname}
                         </a>
                       </p>
-                      <p className="text-gray-600">{post.author.role}</p>
+                      {/* <p className="text-gray-600">{post.author.role}</p> */}
                     </div>
                   </div>
                 </article>
