@@ -6,7 +6,7 @@ import { IoIosEye } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import {setUserId} from "../../features/userSlice"
+import {setUserId,setUserToken} from "../../features/userSlice"
 const Login = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -24,6 +24,7 @@ const Login = () => {
         localStorage.setItem("token",res?.data?.token)
         setData(res?.data)
         dispatch(setUserId(res?.data?.userId))
+        dispatch(setUserToken(true))
         toast.success(res.data.message)
         navigate("/")
       })

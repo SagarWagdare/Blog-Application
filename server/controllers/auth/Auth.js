@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose")
 const signup = async (req, res) => {
-  const { username, email, password ,age} = req.body;
+  const { username, email, password ,age,about} = req.body;
   try {
     // const image = req.file ? req.file.filename : undefined;
     const hashPassword = await bcrypt.hash(password, 10);
@@ -12,7 +12,8 @@ const signup = async (req, res) => {
       email: email,
       password: hashPassword,
       image:req.file.filename,
-      age:age
+      age:age,
+      about:about
     });
 
     const token = jwt.sign(
@@ -90,7 +91,8 @@ const getUser = async (req, res) => {
       email: existingUser.email,
       age: existingUser.age,
       image: existingUser.image,
-      userId: existingUser._id
+      userId: existingUser._id,
+      about:existingUser.about
     };
 
     return res.status(200).json({ success: true, getUser });

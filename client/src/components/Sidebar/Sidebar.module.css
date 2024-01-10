@@ -1,0 +1,5 @@
+
+
+.sidebar_div::-webkit-scrollbar {
+  display: none;
+}

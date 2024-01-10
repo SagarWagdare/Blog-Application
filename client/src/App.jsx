@@ -14,10 +14,11 @@ import { useEffect, useState } from "react";
 import UpdateBlog from "./components/BlogPage/UpdateBlog";
 import UserProfile from "./components/Profile/UserProfile";
 import { useSelector } from "react-redux";
+import BlogDetail from "./components/BlogPage/BlogDetail";
+import Sidebar from "./components/Sidebar/Sidebar";
 function App() {
-  const [isToken, setIsToken] = useState(null);
-  const userId = useSelector((c)=>c.user.userId)
-  const [id,setId] = useState(userId)
+  const userData = useSelector((c)=>c.user)
+  const [id,setId] = useState(userData?.userId)
   useEffect(() => {
     try {
       axios
@@ -33,17 +34,15 @@ function App() {
    
     }
   }, [id]);
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    setIsToken(token)
-  }, []);
+ 
 
   
   return (
     <>
       <Header />
+      {/* <Sidebar/> */}
       <Routes>
-        {isToken ? (
+        {userData.userToken ? (
           <Route path="/" element={<BlogPage />} />
         ) : (
           <Route path="/" element={<HeroSection />} />
@@ -53,6 +52,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/about-us" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/blog-detail/:id" element={<BlogDetail />} />
         <Route path="/update-blog/:id" element={<UpdateBlog />} />
         <Route path="/profile/:id" element={<UserProfile />} />
 

@@ -47,7 +47,7 @@ const Header = () => {
   };
   return (
     <nav className={`${styles.nav} ${scrolled ? styles.scrolled : ""}`}>
-      <h1>
+      <h1 className={`${styles.heading}`}>
         <NavLink to="/">Blog App</NavLink>
       </h1>
       <ul>
@@ -119,8 +119,8 @@ const Header = () => {
 
                 <Menu.Item>
                   {({ active }) => (
-                    <a
-                      href="#"
+                    <NavLink
+                      to={"/"}
                       className={classNames(
                         active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                         "block px-4 py-2 text-sm"
@@ -128,7 +128,7 @@ const Header = () => {
                     >
                       Account settings <span className="text-gray-400">comingsoon!</span>
 
-                    </a>
+                    </NavLink>
                   )}
                 </Menu.Item>
                 <Menu.Item>

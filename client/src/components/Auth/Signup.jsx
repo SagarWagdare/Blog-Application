@@ -6,6 +6,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
+import { setUserToken } from "../../features/userSlice";
 
 const Signup = () => {
   const dispatch = useDispatch()
@@ -14,6 +15,7 @@ const Signup = () => {
     username: "",
     email: "",
     age:"",
+    about:"",
     password: "",
     image:""
   });
@@ -21,26 +23,29 @@ const navigate = useNavigate()
   const handlePasswordvisibility = () => {
     setHidePassword(!hidePassword);
   };
-
   const handleUserDetails = async (e) => {
-    e.preventDefault()
-  const formData = new FormData();
-  formData.append("username",userDetails.username),
-  formData.append("email",userDetails.email),
-  formData.append("age",userDetails.age),
-  formData.append("password",userDetails.password),
-  formData.append("image",userDetails.image),
-
-
-    await axios.post("http://localhost:8000/api/user/signup",formData).then((res)=>{
-      localStorage.setItem(res?.data?.token)
-      toast.success(res?.data?.message)
-      navigate("/")
-
-    }).catch((err)=>{
-      toast.warning(err?.response?.data?.message)
-    })
+    e.preventDefault();
+  
+    const formData = new FormData();
+    formData.append("username", userDetails.username);
+    formData.append("email", userDetails.email);
+    formData.append("age", userDetails.age);
+    formData.append("about", userDetails.about);
+    formData.append("password", userDetails.password);
+    formData.append("image", userDetails.image);
+  
+    try {
+      const res = await axios.post("http://localhost:8000/api/user/signup", formData);
+  
+      localStorage.setItem("token", res?.data?.token); 
+      toast.success(res?.data?.message);
+      dispatch(setUserToken(true));
+      navigate("/");
+    } catch (err) {
+      toast.warning(err?.response?.data?.message);
+    }
   };
+  
   return (
     <div className="isolate bg-white px-6 py-2 sm:py-2 lg:">
       <div
@@ -72,8 +77,8 @@ const navigate = useNavigate()
             <div className="mt-2.5">
               <input
                 type="text"
-                name="text"
-                id="text"
+                name="username"
+                id="username"
                 required
                 autoComplete="text"
                 value={userDetails?.username}
@@ -145,6 +150,26 @@ const navigate = useNavigate()
                 value={userDetails?.age}
                 onChange={(e) =>
                   setUserDetails((prev) => ({ ...prev, age: e.target.value }))
+                }
+                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+          <div className="sm:col-span-2">
+            <label
+              htmlFor="about"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              About
+            </label>
+            <div className="mt-2.5">
+              <input
+                type="text"
+                name="about"
+                id="about"
+                value={userDetails?.about}
+                onChange={(e) =>
+                  setUserDetails((prev) => ({ ...prev, about: e.target.value }))
                 }
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />

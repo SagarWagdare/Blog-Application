@@ -1,6 +1,41 @@
-/* Extra small devices (phones, 600px and down) */
+.create_btn:hover{
+  background-color: lightgray;
+  }
+
+
+  .filter_list::-webkit-scrollbar {
+    display: none;
+  }  
+
+  .blogHeader_div{
+    display: flex;
+  }
+
+  .main_heading{
+    font-size: 30px;
+  }
+  
+  .heading{
+    font-size: 25px;
+  }
+
+  /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
 
+  .blogHeader_div{
+    display: block;
+  }
+  .create_btn{
+    width: auto;
+    
+  }
+  .main_heading{
+     font-size: 20px;
+  }
+  .heading{
+    font-size: 15px;
+  }
+  
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -22,8 +57,4 @@
 @media only screen and (min-width: 1200px) {
 
 }
-
-
-.blog_container:hover{
-background-color: rgba(211, 211, 211, 0.24);
-}
+  

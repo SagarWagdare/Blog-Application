@@ -82,6 +82,7 @@ const CreateBlog = ({ createPopup, handleCreatePopup }) => {
                             type="text"
                             name="title"
                             id="title"
+                            required
                             value={blogData?.authorname}
                             onChange={(e) =>
                               setBlogData((prev) => ({
@@ -105,6 +106,8 @@ const CreateBlog = ({ createPopup, handleCreatePopup }) => {
                             type="text"
                             name="title"
                             id="title"
+                            required
+
                             value={blogData?.title}
                             onChange={(e) =>
                               setBlogData((prev) => ({
@@ -128,6 +131,8 @@ const CreateBlog = ({ createPopup, handleCreatePopup }) => {
                             type="text"
                             name="Category"
                             id="Category"
+                            required
+
                             value={blogData?.category}
                             onChange={(e) =>
                               setBlogData((prev) => ({
@@ -152,6 +157,8 @@ const CreateBlog = ({ createPopup, handleCreatePopup }) => {
                             name="description"
                             id="description"
                             rows={4}
+                            required
+
                             value={blogData?.description}
                             onChange={(e) =>
                               setBlogData((prev) => ({
@@ -175,6 +182,8 @@ const CreateBlog = ({ createPopup, handleCreatePopup }) => {
                             type="file"
                             name="image"
                             id="image"
+                            required
+
                             onChange={(e) =>
                               setBlogData((prev) => ({
                                 ...prev,

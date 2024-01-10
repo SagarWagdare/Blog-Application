@@ -42,7 +42,8 @@ const UserProfile = () => {
         <div className="text-center font-normal text-lg">{isUser?.age}</div>
         <div className="px-6 text-center mt-2 font-light text-sm">
           <p>
-            Front end Developer, avid reader. Love to take a long walk, swim
+          {isUser?.about}
+
           </p>
         </div>
         <hr className="mt-8" />
