@@ -15,6 +15,7 @@ const BlogHeader = ({handleCreatePopup,createPopup}) => {
   const [selected, setSelected] = useState("Filter Category")
   console.log("👉 ~ file: BlogHeader.jsx:76 ~ BlogHeader ~ category⭐", category)
 const dispatch  = useDispatch()
+
 useEffect(() => {
   const handleCategory = async ()=>{
     await axios.get("http://localhost:8000/api/user/getBlogCategories").then((res)=>{
@@ -28,7 +29,7 @@ useEffect(() => {
 }, [])
   return (
     <>
-    <div className={` justify-center items-center ${styles.blogHeader_div}`}> 
+    <div className={`justify-center items-center ${styles.blogHeader_div}`}> 
     <div className="mx-auto max-w-2xl lg:mx-0 ">
     <div className="flex gap-5 items-center">
       <h2 className={` font-bold tracking-tight text-gray-900 gap-1 ${styles.main_heading} `}>
@@ -61,7 +62,7 @@ useEffect(() => {
 }}>
       {({ open }) => (
         <>
-          <div className="relative mt-2">
+          <div className="relative flex gap-2  flex-wrap mt-2">
             <Listbox.Button className="relative w-56 cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6">
               <span className="flex items-center">
                 <span className="ml-3 block truncate">{filterValue}</span>
@@ -116,6 +117,8 @@ useEffect(() => {
                 ))}
               </Listbox.Options>
             </Transition>
+            <button  className='p-2 bg-red-800 rounded-lg text-white  '>reset filter</button>
+
           </div>
         </>
       )}

@@ -25,9 +25,16 @@ export const userSlice = createSlice({
     },
     filter:(state,action)=>{
       state.filterValue = action.payload
+    },
+    setBlog:(state,action)=>{
+      state.allBlogs.push(action.payload)
+    },
+    deleteBlog:(state,action)=>{
+      const blogIdDelete = action.payload;
+      state.allBlogs.filter(blog => blog.id !== blogIdDelete)
     }
   },
 });
 
-export const { userData, setUserId, signOut,filter ,setUserToken} = userSlice.actions;
+export const { userData, setUserId, signOut,filter ,setUserToken,setBlog,deleteBlog} = userSlice.actions;
 export default userSlice.reducer;

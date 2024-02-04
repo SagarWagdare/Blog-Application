@@ -48,7 +48,7 @@ const Header = () => {
   return (
     <nav className={`${styles.nav} ${scrolled ? styles.scrolled : ""}`}>
       <h1 className={`${styles.heading}`}>
-        <NavLink to="/">Blog App</NavLink>
+        <NavLink to="/" >Blog App</NavLink>
       </h1>
       <ul>
         <li>
@@ -150,7 +150,7 @@ const Header = () => {
           </Transition>
         </Menu>
       ) : (
-        <ul>
+        <ul >
           <li>
             <NavLink to="/login">login</NavLink>
           </li>

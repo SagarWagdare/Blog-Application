@@ -8,9 +8,12 @@ import { MdDelete } from "react-icons/md";
 import UpdateBlog from "./UpdateBlog";
 import { toast } from "react-toastify";
 import styles from "./BlogDetail.module.css"
+import { useDispatch } from "react-redux";
+import { deleteBlog } from "../../features/userSlice";
 const BlogDetail = () => {
   const params = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [singleBlog, setSingleBlog] = useState({});
   const [isEdit,setIsEdit] = useState(false)
   console.log(
@@ -23,7 +26,10 @@ const BlogDetail = () => {
     await axios
     .delete(`http://localhost:8000/api/user/deleteBlog/${id}`)
     .then((res) => {
+    console.log("👉 ~ .then ~ res⭐", res)
+// dispatch(deleteBlog())
       toast.success(res?.data?.message)
+      
       navigate("/")
     })
     .catch((err) => {
@@ -90,14 +96,14 @@ const BlogDetail = () => {
                       className={`bg-transparent text-black border-black border font-semibold rounded-md px-2 py-1  ${styles.button}`}
                     >
                       Edit
-                      <span className="inline-flex mx-2"><MdEdit/></span>
+                      <span className="inline-flex mx-2"><MdEdit className="text-sm"/></span>
                     </button>
                     <button
                     onClick={handleDeleteBlog}
                       className={`bg-transparent text-black border-black border font-semibold rounded-md px-2 py-1   ${styles.button}`}
                     >
                       Delete
-                      <span className="inline-flex mx-2"><MdDelete/></span>
+                      <span className="inline-flex mx-2"><MdDelete className="text-sm"/></span>
                     </button>
                   </div>
           {/* commented for incompleted feature  */}

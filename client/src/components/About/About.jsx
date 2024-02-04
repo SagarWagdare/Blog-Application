@@ -8,37 +8,37 @@ const About = () => {
           <h1 className="flex justify-center font-bold underline">
             Application Created Using
           </h1>
-          <div className="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-15 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5">
+          <div className={`mx-auto mt-10 grid max-w-lg grid-cols-5 items-center gap-x-8 gap-y-15 sm:max-w-xl sm:grid-cols-5 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5 ${styles.icon_div}`}>
             <img
-              className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
+              className=" max-h-12 w-full object-contain lg:col-span-1"
               src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original-wordmark.svg"
               alt="mongodb"
               width={158}
               height={48}
             />
             <img
-              className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
+              className=" max-h-12 w-full object-contain "
               src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original-wordmark.svg"
               alt="express"
               width={158}
               height={48}
             />
             <img
-              className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
+              className=" max-h-12 w-full object-contain "
               src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg"
               alt="react"
               width={158}
               height={48}
             />
             <img
-              className="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1"
+              className=" max-h-12 w-full object-contain  "
               src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg"
               alt="nodejs"
               width={158}
               height={48}
             />
             <img
-              className="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
+              className="max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
               src="https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg"
               alt="tailwinf"
               width={158}

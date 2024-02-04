@@ -10,14 +10,17 @@ import { API_BASE_URL } from "../.././config";
 import { format } from "date-fns";
 import { IoCreateOutline } from "react-icons/io5";
 import BlogHeader from "./BlogHeader";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setBlog } from "../../features/userSlice";
 const BlogPage = () => {
   const [blogs, setBlogs] = useState([]);
   const [createPopup, setCreatePopup] = useState(false);
   const navigate = useNavigate();
+  const dispatch=  useDispatch();
   const [loading, setLoading] = useState(false);
   const filterValue = useSelector((c) => c.user.filterValue);
   const [blogData, setBlogData] = useState([]);
+  
   useEffect(() => {
     const filteredBlogs = blogs.filter((blog) => blog.category === filterValue);
     if (filteredBlogs.length === 0) {
@@ -32,8 +35,10 @@ const BlogPage = () => {
     await axios
       .get("http://localhost:8000/api/user/getBlogs")
       .then((res) => {
+        console.log("👉 ~ .then ~ res⭐", res)
         setBlogs(res?.data?.allBlogs);
         setLoading(false);
+        dispatch(setBlog(res?.data?.allBlogs))
       })
       .catch((err) => console.log(err));
   };

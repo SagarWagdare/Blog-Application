@@ -49,8 +49,16 @@ nav li:hover{
        font-size: 20px;
     }
     .heading{
-      font-size: 15px;
+      font-size: 10px;
+      width: 220px;
     }
+    
+nav ul{
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  font-size: 15px;
+}
     
   }
   
